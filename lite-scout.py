@@ -6,8 +6,7 @@ def get_shodan_results(query, api_key):
     url = f"https://api.shodan.io/shodan/host/search?key={api_key}&query={query}"
     response = requests.get(url)
     data = response.json()
-    ips = [result['ip_str'] for result in data['matches']]
-    return ips
+    return [result['ip_str'] for result in data['matches']]
 
 def save_to_file(ips):
     with open("ips.txt", "w") as file:
@@ -32,7 +31,7 @@ def main():
     ips = shodan_ips
 
     save_to_file(ips)
-    print(f"Results saved to ips.txt")
+    print("Results saved to ips.txt")
 
 if __name__ == "__main__":
     main()
